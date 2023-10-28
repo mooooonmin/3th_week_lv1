@@ -27,6 +27,9 @@ dependencies {
 	// MySQL
 	implementation 'mysql:mysql-connector-java:8.0.28'
 
+	// 유효성검사를 위한 validation
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'

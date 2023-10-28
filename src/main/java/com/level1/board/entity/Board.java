@@ -19,12 +19,16 @@ public class Board extends Timestamped {
     private String username;
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
+    @Column(name = "password", nullable = false)
+    private String password;
+
 
     public Board(BoardRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();
     }
 
+    // 업데이트시 제목과 내용만 업데이트 하기때문에
     public void update(BoardRequestDto requestDto) {
         this.username = requestDto.getUsername();
         this.contents = requestDto.getContents();

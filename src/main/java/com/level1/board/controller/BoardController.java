@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@V
 @RestController
 @RequestMapping("/api") // 공통된 api 생략하기
 public class BoardController {
