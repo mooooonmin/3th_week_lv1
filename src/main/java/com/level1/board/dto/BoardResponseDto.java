@@ -11,6 +11,7 @@ public class BoardResponseDto {
     // 여기서 id는 데이터베이스에 저장되는 순번임 -> 이 프로젝트에는 로그인구현을 하지 않았기 때문에
     // 데이터베이스에서 순차적으로 생성되는 값으로 pk를 지정하는 듯? not null & unique 값이 그것밖에 없어서
     private Long id;
+    private String title; // 제목 추가
     private String username;
     private String contents;
     private LocalDateTime createdAt;
@@ -18,6 +19,7 @@ public class BoardResponseDto {
 
     public BoardResponseDto(Board board) {
         this.id = board.getId();
+        this.title = board.getTitle();
         this.username = board.getUsername();
         this.contents = board.getContents();
         this.createdAt = board.getCreatedAt();

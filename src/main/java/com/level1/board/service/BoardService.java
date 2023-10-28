@@ -49,10 +49,8 @@ public class BoardService {
         // 해당 게시글이 DB에 존재하는지 확인
         Board board = findBoard(id);
 
-        // 비밀번호 검증
-        if (!board.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
+        // 비밀번호 검증 메서드
+        validatePassword(board, password);
 
         // board 내용 수정
         board.update(requestDto);
@@ -69,10 +67,8 @@ public class BoardService {
         // 해당 게시글이 DB에 존재하는지 확인
         Board board = findBoard(id);
 
-        // 비밀번호 검증
-        if (!board.getPassword().equals(password)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
+        // 비밀번호 검증 메서드
+        validatePassword(board, password);
 
         // board 삭제
         boardRepository.delete(board);
@@ -83,5 +79,12 @@ public class BoardService {
     private Board findBoard(Long id) {
         // 만약에 조회한 id가 없으면 -> 예외처리
         return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시글은 존재하지 않습니다."));
+    }
+
+    // 비밀번호 검증 메서드
+    private void validatePassword(Board board, String password) {
+        if (!board.getPassword().equals(password)) {
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        }
     }
 }

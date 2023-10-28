@@ -3,11 +3,12 @@ package com.level1.board.controller;
 import com.level1.board.dto.BoardRequestDto;
 import com.level1.board.dto.BoardResponseDto;
 import com.level1.board.service.BoardService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@V
+
 @RestController
 @RequestMapping("/api") // 공통된 api 생략하기
 public class BoardController {
@@ -22,7 +23,6 @@ public class BoardController {
     // 게시글 생성
     @PostMapping("/boards")
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto) {
-        // 타입캐스팅이 필요했나?
         return boardService.createBoard(requestDto);
     }
 
@@ -34,13 +34,13 @@ public class BoardController {
 
     // 수정 요청
     @PutMapping("/boards/{id}") // 아이디는 생성되는 순서로 배정받는 것(실제 id ㄴㄴ)
-    public Long updateBoard(@PathVariable Long id, @RequestBody BoardRequestDto requestDto) {
-        return boardService.updateBoard(id, requestDto);
+    public Long updateBoard(@PathVariable Long id, @Valid @RequestBody BoardRequestDto requestDto) {
+        return boardService.updateBoard(id, requestDto, requestDto.getPassword());
     }
 
     // 삭제 요청
     @DeleteMapping("/boards/{id}")
-    public Long deleteBoard(@PathVariable Long id) {
-        return boardService.deleteBoard(id);
+    public Long deleteBoard(@PathVariable Long id, @Valid @RequestBody BoardRequestDto requestDto) {
+        return boardService.deleteBoard(id, requestDto.getPassword());
     }
 }
