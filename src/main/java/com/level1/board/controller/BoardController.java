@@ -42,7 +42,7 @@ public class BoardController {
     // 수정 요청
     @PutMapping("/boards/{id}") // 아이디는 생성되는 순서로 배정받는 것(실제 id ㄴㄴ), 아이디 받아서 수정하기
     public Long updateBoard(@PathVariable Long id, @Validated @RequestBody BoardRequestDto requestDto) {
-        return boardService.updateBoard(id, requestDto, requestDto.getPassword());
+        return boardService.updateBoard(id, requestDto);
     }
 
     // 삭제 요청

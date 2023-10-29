@@ -48,7 +48,7 @@ public class BoardService {
     }
 
     @Transactional
-    public Long updateBoard(Long id, BoardRequestDto requestDto, String password) {
+    public Long updateBoard(Long id, BoardRequestDto requestDto) {
 
         // BoardRequestDto를 매개변수로 받아오는 이유?
         // 클라이언트가 수정할 게시글의 새로운 내용을 BoardRequestDto 객체로 전달하기 때문(삭제와는 성격이 다름)
@@ -57,7 +57,7 @@ public class BoardService {
         Board board = getBoardById(id);
 
         // 비밀번호 검증 메서드
-        validatePassword(board, password);
+        validatePassword(board, requestDto.getPassword());
 
         // board 내용 수정
         board.update(requestDto);
