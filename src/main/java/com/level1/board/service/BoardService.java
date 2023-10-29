@@ -34,6 +34,13 @@ public class BoardService {
         return boardResponseDto;
     }
 
+    // 특정 id값 게시글 조회
+    public BoardResponseDto getBoard(Long id) {
+        Board board = getBoardById(id);
+        return new BoardResponseDto(board);
+    }
+
+
     public List<BoardResponseDto> getBoards() {
         // DB 조회 -> 존재하는 모든 게시글 조회 -> ModifiedAt 기준으로 내림차순 정렬하기
         // 조회한걸 -> 스트림으로 변환 -> 각 게시글의 엔티티를 BoardResponseDto로 변 -> 그걸다시 리스트로
@@ -47,7 +54,7 @@ public class BoardService {
         // 클라이언트가 수정할 게시글의 새로운 내용을 BoardRequestDto 객체로 전달하기 때문(삭제와는 성격이 다름)
 
         // 해당 게시글이 DB에 존재하는지 확인
-        Board board = findBoard(id);
+        Board board = getBoardById(id);
 
         // 비밀번호 검증 메서드
         validatePassword(board, password);
@@ -65,7 +72,7 @@ public class BoardService {
         // BoardRequestDto와 같은 수정용 데이터를 받아오는 것은 필요하지 않음
 
         // 해당 게시글이 DB에 존재하는지 확인
-        Board board = findBoard(id);
+        Board board = getBoardById(id);
 
         // 비밀번호 검증 메서드
         validatePassword(board, password);
@@ -76,13 +83,15 @@ public class BoardService {
         return id;
     }
 
-    private Board findBoard(Long id) {
-        // 만약에 조회한 id가 없으면 -> 예외처리
-        return boardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("선택한 게시글은 존재하지 않습니다."));
+    // 게시글 조회 메서드 -> 단건 조회(특정 아이디), 수정, 삭제에 들어감
+    private Board getBoardById(Long id) {
+        return boardRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다."));
     }
 
     // 비밀번호 검증 메서드
     private void validatePassword(Board board, String password) {
+        System.out.println(password);
         if (!board.getPassword().equals(password)) {
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
