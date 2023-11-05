@@ -120,6 +120,7 @@ cmake-build-*/
 *.iws
 
 # IntelliJ
+application.properties
 out/
 
 # mpeltonen/sbt-idea plugin
