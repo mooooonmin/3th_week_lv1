@@ -47,9 +47,10 @@ public class BoardController {
     }
 
     // 게시글 삭제
+    // 게시글 삭제
     @DeleteMapping("/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long boardId,
-                                         @Validated @PathVariable BoardRequestDto requestDto) {
+                                         @RequestBody BoardRequestDto requestDto) {
         boardService.deleteBoard(boardId, requestDto.getPassword());
         return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
