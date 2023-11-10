@@ -2,8 +2,10 @@ package com.level1.board.controller;
 
 import com.level1.board.dto.BoardRequestDto;
 import com.level1.board.dto.BoardResponseDto;
+import com.level1.board.entity.Board;
 import com.level1.board.service.BoardService;
-import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,43 +13,44 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api") // 공통된 api 생략하기
+@AllArgsConstructor
+@RequestMapping("/api/board")
 public class BoardController {
 
-    // 데이터 전달 방식
     private final BoardService boardService;
 
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
-    }
-
-    // 게시글 생성 -> 생성 먼저해야 조회가 가능하니까
-    @PostMapping("/board")
+    // 게시글 생성
+    @PostMapping()
     public BoardResponseDto createBoard(@RequestBody BoardRequestDto requestDto) {
         return boardService.createBoard(requestDto);
     }
 
     // 게시글 전체 조회
-    @GetMapping("/boards")
-    public List<BoardResponseDto> getBoards() {
-        return boardService.getBoards();
+    @GetMapping()
+    public List<BoardResponseDto> getAllBoards() {
+        return boardService.getAllBoards();
     }
 
     // 게시글 단일 조회
-    @GetMapping("/boards/{id}")
-    public BoardResponseDto getBoard(@PathVariable Long id) {
-        return boardService.getBoard(id);
+    @GetMapping("/{boardId}")
+    public BoardResponseDto getBoardById(@PathVariable Long boardId) {
+        return boardService.getBoardById(boardId);
     }
 
-    // 수정 요청
-    @PutMapping("/boards/{id}") // 아이디는 생성되는 순서로 배정받는 것(실제 id ㄴㄴ), 아이디 받아서 수정하기
-    public Long updateBoard(@PathVariable Long id, @Validated @RequestBody BoardRequestDto requestDto) {
-        return boardService.updateBoard(id, requestDto);
+    // 선택 게시글 수정
+    @PutMapping("/{boardId}")
+    public ResponseEntity<?> updateBoard(@PathVariable Long boardId,
+                                         @Validated @RequestBody BoardRequestDto requestDto) {
+        boardService.updateBoard(boardId, requestDto);
+        BoardResponseDto updatedBoardResponse = boardService.getBoardById(boardId);
+        return ResponseEntity.ok(updatedBoardResponse);
     }
 
-    // 삭제 요청
-    @DeleteMapping("/boards/{id}") // 아이디 받아서 삭제하기
-    public Long deleteBoard(@PathVariable Long id, @Validated @RequestBody BoardRequestDto requestDto) {
-        return boardService.deleteBoard(id, requestDto.getPassword());
+    // 게시글 삭제
+    @DeleteMapping("/{boardId}")
+    public ResponseEntity<?> deleteBoard(@PathVariable Long boardId,
+                                         @Validated @PathVariable BoardRequestDto requestDto) {
+        boardService.deleteBoard(boardId, requestDto.getPassword());
+        return ResponseEntity.ok("게시글이 삭제되었습니다.");
     }
 }

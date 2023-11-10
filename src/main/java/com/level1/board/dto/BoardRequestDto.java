@@ -1,16 +1,40 @@
 package com.level1.board.dto;
 
+import com.level1.board.entity.Board;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class BoardRequestDto {
 
-    // 비밀번호는 주로 생성 및 수정 요청과 관련있으므로 requestDto 쪽에 추가하는게 일반적
-    // 게시글을 작성하거나 수정할 때 비밀번호를 전달해야하기 때문
-
+    @NotBlank(message = "빈 값일 수 없습니다")
     private String title;
-    private String username;
+
+    @NotBlank(message = "빈 값일 수 없습니다")
+    private String userName;
+
+    @NotBlank(message = "빈 값일 수 없습니다")
     private String contents;
-    private String password; // 필수 구현 조건 -> 비밀번호 추가
+
+    @NotBlank(message = "빈 값일 수 없습니다")
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,15}$",
+            message = "비밀번호는 8~15자리면서 알파벳, 숫자, 특수문자를 포함해야합니다")
+    private String password;
+
+    public Board toEntity() {
+        return Board.builder()
+                .title(title)
+                .userName(userName)
+                .contents(contents)
+                .password(password)
+                .build();
+    }
+
 }
