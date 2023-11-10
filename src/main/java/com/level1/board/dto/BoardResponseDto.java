@@ -4,8 +4,6 @@ import com.level1.board.entity.Board;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
-
 @Getter
 @ToString
 public class BoardResponseDto {

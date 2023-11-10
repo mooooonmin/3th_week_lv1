@@ -2,7 +2,6 @@ package com.level1.board.controller;
 
 import com.level1.board.dto.BoardRequestDto;
 import com.level1.board.dto.BoardResponseDto;
-import com.level1.board.entity.Board;
 import com.level1.board.service.BoardService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +45,6 @@ public class BoardController {
         return ResponseEntity.ok(updatedBoardResponse);
     }
 
-    // 게시글 삭제
     // 게시글 삭제
     @DeleteMapping("/{boardId}")
     public ResponseEntity<?> deleteBoard(@PathVariable Long boardId,

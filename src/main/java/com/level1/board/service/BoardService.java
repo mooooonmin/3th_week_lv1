@@ -5,11 +5,9 @@ import com.level1.board.dto.BoardResponseDto;
 import com.level1.board.entity.Board;
 import com.level1.board.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
