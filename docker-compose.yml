@@ -13,7 +13,7 @@ services: # 컨테이너
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   spring-boot-app:
-    image: board-image
+    image: board-image:latest
     container_name: board-container2
     ports:
       - "8081:8080"
