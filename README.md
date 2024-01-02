@@ -6,6 +6,7 @@
 ## API
 - Swagger 사용
 - http://localhost:8080/swagger-ui/index.html
+![2024-01-02_13-57-34](https://github.com/mooooonmin/3th_week_lv1/assets/118891828/18c84b18-af22-4b66-910e-351c0486b410)
 ---
 ## 요구사항 (필수 구현 기능)
 - [X]  게시글 작성 기능
