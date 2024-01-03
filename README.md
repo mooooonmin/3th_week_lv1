@@ -1,8 +1,5 @@
 # 3th_week_lv1
 ---
-## ERD
-![2023-11-10_19-18-55](https://github.com/mooooonmin/3th_week_lv1/assets/118891828/90e2caa6-bf2e-441a-868f-b680a614c532)
----
 ## API
 - Swagger 사용
 - http://localhost:8080/swagger-ui/index.html
